@@ -1,0 +1,38 @@
+mvn -v - версия
+mvn clean - очистить репозиторий maven от текущего проекта
+mvn compiler:compile - скомпилировать проект
+mvn compiler:testCompile - скомпилировать тестовые классы
+mvn package
+mvn install
+mvn deploy
+mvn validate
+mnv site:site
+
+mvn dependency:tree - показать древовидный список зависимостей
+mvn dependency:analyze - анализ неиспользованных зависимостей
+
+
+параметры
+можно передавать jvm аргументы
+разновидности:
+
+user arguments(что-то типа env, но именно для приложения)
+D - Можем задавать любые свои аргументы
+-D[key]
+-D[key]=[value] - Пример:
+			-Dprofile=dev
+Получить можно при System.getProperties()
+
+X - это стандартные аргументы ж=для запуска приложения
+-X[key][value] - Примиер:
+			-Xms512m - расмер стека
+			-Xmx1024m - размер хипа
+XX - для стандартные настройки компилятора, 
+		GC и т.д.(для глубокой настройки)
+
+program arguments - не стардартизарованы.Те самые, которые передаются в метод main(String[] args)
+[key]=[value] - Пример:
+			test=dev
+Можем так же получить наши env переменные, которые у нас на компе:
+System.getenv(String key)
+	
