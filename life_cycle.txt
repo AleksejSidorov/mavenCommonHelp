@@ -1,0 +1,67 @@
+Жизненный цикл - это набор фаз(Phase)
+Phase - это набор goal
+
+Фазы выполняются последовательно, с самой первой, до запущенной.
+
+Life Cycle:
+	- Clean
+	- Default(Build)
+	- Site
+
+Clean:
+	- pre-clean
+	- clean (основной) - очистка директории target
+	- post-clean
+
+Default:     (это список самых основных фаз, из множества. Ниже будет полный спиок)
+	- validate - валидация POM файлов
+	- compile  - компиляция
+	- test	   - запуск тестов
+	- package  - упаковка
+	- verify   - запуск интеграционных тестов
+	- install  - копирование артефакта в local repository
+	- deploy   - копирование из local reposytory в remote reposytory
+
+Site:
+	- pre-site 
+	- site (основная) - формирование отчётов(к примеру тестов)
+	- post-site
+	- site-deploy
+
+validate - 
+
+initialize - пустая фаза, в которую можно добавит выполнение своего плагина
+generate-source - используются плагинами, которые создают доп java классы
+process-sources - обрабатывают исходники
+generate-resources - генерирует доп файлы для ресурсов
+process-resources - обработка файлов resources, так же перемещает resources в target
+
+compile - компиляция и перемещение скомпилированных файлов в target
+
+process-classes - для обработки классов, полученных на предыдущем шаге(пустой)
+generate-test-sources - для генерации доп исходников для тестов(пустой)
+process-test-sources - обработать доп исходники для тестов(пустой)
+generate-test-resources - создать доп ресурсы для тестов(пустой)
+process-test-resources - обработать и перенести в таргет доп ресурсы для тестов(пустой)
+test-compile - компиляция исходников тестов
+process-test-classes - пост обработка тестовых классов
+test - запуск тестов
+
+prepare-package - подготовка к упаковки(пустой)
+package - упаковка проекта
+
+pre-integration-test - (пустой)
+integration-test - (пустой)
+post-integration-test - (пустой)
+verify - запуск интеграционного теста
+
+install - перенос артифакта в локальный репозиторий
+
+deploy - перенос в удалённый репозиторий
+
+pre-site
+site - перенос отчётов о выполнении жизненного цикла
+post-site
+site-deploy
+
+

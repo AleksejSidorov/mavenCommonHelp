@@ -1,4 +1,8 @@
 mvn -v - версия
+
+mvn [phase]:[goal] - вызвать определённый goal у phase. 
+			Если вызвать просто фазу - отработают все по очереди.
+
 mvn clean - очистить репозиторий maven от текущего проекта
 mvn compiler:compile - скомпилировать проект
 mvn compiler:testCompile - скомпилировать тестовые классы
@@ -8,8 +12,11 @@ mvn deploy
 mvn validate
 mnv site:site
 
+mvn dependencies:hekp - перечень goals
 mvn dependency:tree - показать древовидный список зависимостей
-mvn dependency:analyze - анализ неиспользованных зависимостей
+mvn dependency:analyze - анализ неиспользованных зависимостей и другое
+
+mvn help:effective-pom - показать super-pom (результирующий POM файл)
 
 
 параметры

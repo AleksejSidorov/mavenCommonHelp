@@ -1,0 +1,103 @@
+plugin - это всёго лишь java класс, и через <configuration> мы можем засетать необходимые переменные.
+
+<!--Пример с изменение версии компиляции-->
+<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-compiler-plugin</artifactId>
+<!-- Переопределили версию плагина-->
+	<version>3.6.3</version>
+<!--Конфигурируем-->
+	<configuration>
+<!--Прописываем версию java-->
+		<source>11</source>
+		<target>11</target>
+	</configuration>
+</plugin>
+
+
+
+<!--Пример с тестом. У фазы test используется следующий плагин.-->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.0.0</version>
+                    <configuration>
+<!--добавили, что бы призапуске теста отрабатывали классы с названием **TestMy-->
+                        <includes>
+                            <include>**/*TestMy.class</include> 
+                        </includes>
+		<!--Отключаем тест-->
+                        <skip>true</skip>
+                    </configuration>
+                </plugin>
+
+Привязывем goal к фазе
+
+                <plugin>
+<!--                    Берём плагин для работы с ресурсами-->
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.3.1</version>
+                    <executions>
+                        <execution>
+<!--                            Указываем один goal из плагина-->
+                            <goals>
+                                <goal>copy-resources</goal>
+                            </goals>
+<!--                            Конфигурируем-->
+                            <configuration>
+                                <resources>
+                                    <resource>
+<!--                                         Берём содержимое из папки [project]/[path_from]-->
+                                        <directory>${project.basedir}/[path_from]</directory>
+                                    </resource>
+                                </resources>
+<!--                                Переносим в папку [project]/[path_to]-->
+                                <outputDirectory>${project.basedir}/[path_to]</outputDirectory>
+                            </configuration>
+<!--                            Указываем фазу-->
+                            <phase>test</phase>
+                        </execution>
+                    </executions>
+                </plugin>
+
+Пример с фазой verify
+
+ <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>2.22.2</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>integration-test</goal>
+<!--                            Одноименный goal с фазой. Не путать-->
+                                <goal>verify</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+Пример для deploy - прописывается в теге <project>
+
+<!--    ~/.m2/settings.xml  - здесь нужно хранить логин и пароль от nexus-->
+    <distributionManagement>
+Добавили репозиторий для snapshot
+        <snapshotRepository>
+            <id>nexus</id>
+            <url>http://localhost:9000/maven/snapshots</url>
+            <name>snapshot</name>
+        </snapshotRepository>
+Добавили репозиторий для releas
+        <repository>
+            <id>nexus</id>
+            <url>http://localhost:9000/maven/snapshots</url>
+            <name>release</name>
+        </repository>
+    </distributionManagement>
+
+
+
+
+
+

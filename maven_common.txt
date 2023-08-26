@@ -1,2 +1,34 @@
 maven -  это помошник для сбора проекта. Написанный на java и позволяющий гибко запускать и собирать проекты.
-	maven содержит плагины, у поагинов есть свои цели(goal), в каждом из них выполняется метод execute()	
+	maven содержит плагины, у поагинов есть свои цели(goal), в каждом из них выполняется метод execute()
+	Точнее, есть жизненный цикл, он состоит из фаз, фазы из goal, которые есть в plugin. В plugin их может быть несколько.
+
+
+Структура: 
+	General Progect Information:   -  общая информация о проекте
+		- General
+		- Contributions
+		- Licenses
+
+	Build Environment:             -  конфигурация переменных
+		- Environment information
+		- profiles
+
+	POM Relationships:
+		- groupId    
+		- artifactId
+		- version
+		
+		- Miltymodule 
+	
+		- Inheritance
+
+		- Dependencies
+
+	Build settings:		      - жизненный цикл проекта
+		- plugins
+		- resources	    
+		- directories
+		- extensions
+
+		- reporting
+		 
