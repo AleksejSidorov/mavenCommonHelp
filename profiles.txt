@@ -1,0 +1,67 @@
+profiles - возможность при определённых условиях изменить POM и переопределять свойства.
+
+     <profiles>
+        <profile>
+	    <!--Добавили профиль dev-->
+            <id>dev</id>
+            <properties>
+                <!--Добавили properties example и значение true-->
+                <example>true</example>
+                <!--Изменили версию java-->
+                <java.version>17</java.version>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.22.2</version>
+		<!--Отключили test-->
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+Т.е., при использовании profiles, кусок POM заменяется на тот, который лежит в profiles.
+
+Для использования profiles, необходимо использовать или панель справа и поставить флажок с нужным профилем, или через cmd:
+mvn compile -Pdev
+Так же профили можно использовать несколько через запятую:
+mvn compile -Pdev,skipTest
+
+Так же, профили можно использовать и через <activation>, для этого нужно добавить его в <profile>. Пример:
+
+        <profile>
+<!--            Активация профиля-->
+            <activation>
+<!--                Можно указать использвание по умолчанию-->
+                <activeByDefault>true</activeByDefault>
+<!--                Использовать, если ОС-->
+                <os>
+<!--                    Архитектура ОС-->
+                    <arch></arch>
+<!--                    Версия JC-->
+                    <version></version>
+<!--                    Имя ОС-->
+                    <name></name>
+<!--                    Семейство-->
+                    <family>windows</family>
+                </os>
+<!--                Использовать, если JDK версии-->
+                <jdk>11</jdk>
+<!--                Использовать если файл существует или отсутствует-->
+                <file>
+                    <exists>path_exists_file</exists>
+                    <missing>path_missing_file</missing>
+                </file>
+<!--                Если системная переменная равна значению-->
+                <property>
+                    <name>test.key</name>
+                    <value>15</value>
+                </property>
+            </activation>
+Условий много, и складываются по ||

@@ -1,0 +1,50 @@
+Пример структуры multimodule
+
+		Super POM
+		    |
+		    |
+		Parent POM
+		/   |   \
+	       /    |    \
+	      /     |     \
+	     /      |      \
+	    /       |       \
+	   /        |        \
+       DBJar   serviceJar    web WAR
+
+Parent POM наследуется от Super POM, пакеты наследуются от ParentPOM
+
+
+При добавлении нового модуля, в POM этого модуля прописывается тег <parent>, с данными, от какого модуля мы наследуемся. 
+А в родительский POM добавляется тег <modules>, в котором указываются наследуемые модули. Но, рутовый POM должен иметь <packging> POM
+
+Пример <parent>:
+
+    <parent>
+        <artifactId>simple-project</artifactId>
+        <groupId>org.alsid</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+По умолчанию, <version> и <groupId> наследуется от основного модуля, но можно переопределить.
+
+Пример <modules>:
+
+    <modules>
+        <module>database</module>
+    </modules>
+
+Что бы дочерние POM смогли унаследовать <dependencies>, сами зависимости нужно скопировать в <dependencyManagement>,
+	но и так же должны быть прописаны в дочерних POM.
+	То же самое должно быть и для <plugin>. Они должны быть продублированы в <pluginManagement>
+	Версия зависимости и плагинов по умолчанию будут из parent POM(best practice). 
+
+Для того, что бы из одного модуля A обратиться к другому B, необходимо прописать зависимость в сервисе A, что то типа:
+
+<dependencies>
+	<artifactId>B</artifactId>
+        <groupId>org.alsid</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+</dependencies> 
+
+
